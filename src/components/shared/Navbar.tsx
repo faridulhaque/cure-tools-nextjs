@@ -1,8 +1,15 @@
+import { auth } from "@/services/firebase.init";
 import Link from "next/link";
 import React from "react";
-
+import { useAuthState } from "react-firebase-hooks/auth";
+import Loading from "./Loading";
+import { signOut } from "firebase/auth";
 
 const Navbar = () => {
+  const [user, loading, error] = useAuthState(auth);
+
+  if (loading) return <Loading></Loading>;
+
   return (
     <div className="navbar bg-[#000944] h-20 z-20">
       <div className="navbar-start">
@@ -33,9 +40,11 @@ const Navbar = () => {
             <li className="h-12">
               <Link href="#">Inventories</Link>
             </li>
-            <li className="h-12">
-              <span>Dashboard</span>
-            </li>
+            {user?.uid && (
+              <li className="h-12">
+                <span>Dashboard</span>
+              </li>
+            )}
             <li className="h-12">
               <Link href="#">Reviews</Link>
             </li>
@@ -86,24 +95,26 @@ const Navbar = () => {
               </svg>
             </Link>
           </li>
-          <li className="tooltip tooltip-bottom" data-tip="Dashboard">
-            <Link href="#">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="white"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-                />
-              </svg>
-            </Link>
-          </li>
+          {user?.uid && (
+            <li className="tooltip tooltip-bottom" data-tip="Dashboard">
+              <Link href="#">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="white"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                  />
+                </svg>
+              </Link>
+            </li>
+          )}
           <li className="tooltip tooltip-bottom" data-tip="Reviews">
             <Link href="#">
               <svg
@@ -143,7 +154,15 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <button className="btn">Sign out</button>
+        {user?.uid ? (
+          <button onClick={() => signOut(auth)} className="btn">
+            Log Out
+          </button>
+        ) : (
+          <Link className="btn" href="/entry">
+            Log In
+          </Link>
+        )}
       </div>
     </div>
   );

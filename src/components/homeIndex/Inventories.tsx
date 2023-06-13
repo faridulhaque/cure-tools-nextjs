@@ -1,15 +1,28 @@
 import React, { useEffect, useState } from "react";
 import Item from "./Item";
+import { useGetInventoriesQuery } from "@/services/queries/homeApi";
+import Loading from "../shared/Loading";
 
 const Inventories = () => {
-  const [inventories, setInventories] = useState([]);
+  // const [inventories, setInventories] = useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:5000/tools")
-      .then((res) => res.json())
-      .then((data) => setInventories(data));
-  }, [inventories]);
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/tools")
+  //     .then((res) => res.json())
+  //     .then((data) => setInventories(data));
+  // }, [inventories]);
 
+
+  const { data:inventories, error, isError, isLoading } = useGetInventoriesQuery<any>('get_inventories')
+
+
+  if(isLoading){
+    return <Loading></Loading>
+  }
+
+  if(isError){
+    console.log(error.message);
+  }
   return (
     <div className="bg-base-200 py-10">
       <h2 className="text-4xl text-center">Inventories</h2>

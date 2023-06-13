@@ -1,6 +1,8 @@
+import Link from "next/link";
 import React from "react";
 
 const Banner = () => {
+  
   return (
     <div
       className="h-[calc(100vh-80px)] hero"
@@ -14,7 +16,7 @@ const Banner = () => {
           <p className="mb-5 text-2xl text-[#333333]">
           Your trusted wholesale supplier of premium dental tools, offering exceptional quality and competitive prices for dental professionals. Elevate your practice with us.
           </p>
-          <button className="btn bg-[#000944] text-white hover:bg-[#000944] hover:shadow-lg">Get Started</button>
+          <Link href="/entry/register" className="btn bg-[#000944] text-white hover:bg-[#000944] hover:shadow-lg">Get Started</Link>
         </div>
       </div>
     </div>

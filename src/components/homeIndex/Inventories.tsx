@@ -4,15 +4,7 @@ import { useGetInventoriesQuery } from "@/services/queries/homeApi";
 import Loading from "../shared/Loading";
 
 const Inventories = () => {
-  // const [inventories, setInventories] = useState([]);
-
-  // useEffect(() => {
-  //   fetch("http://localhost:5000/tools")
-  //     .then((res) => res.json())
-  //     .then((data) => setInventories(data));
-  // }, [inventories]);
-
-
+ 
   const { data:inventories, error, isError, isLoading } = useGetInventoriesQuery<any>('get_inventories')
 
 

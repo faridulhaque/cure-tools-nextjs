@@ -82,7 +82,7 @@ const RegisterForm = () => {
 
       if (registered?.acknowledged) {
         router.push("/home");
-      } else {
+      } else if(registered?.err) {
         alert("email already in use");
       }
     }
@@ -100,7 +100,7 @@ const RegisterForm = () => {
       photo,
     };
 
-    if (newUser?.user.uid) {
+    if (newUser?.user?.uid) {
       const result = await register(info);
       if(result){
         router.push("/")

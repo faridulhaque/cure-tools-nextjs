@@ -1,7 +1,7 @@
 import React from "react";
-import Navbar from "../shared/Navbar";
-import LoginForm from "../entry/LoginForm";
-import Footer from "../shared/Footer";
+import Navbar from "../particles/shared/Navbar";
+import LoginForm from "../particles/entry/LoginForm";
+import Footer from "../particles/shared/Footer";
 
 const LoginIndex = () => {
   return (

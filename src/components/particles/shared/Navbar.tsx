@@ -42,7 +42,7 @@ const Navbar = () => {
             </li>
             {user?.uid && (
               <li className="h-12">
-                <span>Dashboard</span>
+                <Link href="/dashboard">Dashboard</Link>
               </li>
             )}
             <li className="h-12">
@@ -53,7 +53,7 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <Link href="#" className="normal-case text-4xl text-white ml-3">
+        <Link href="/" className="normal-case text-4xl text-white ml-3">
           Cure Tools
         </Link>
       </div>
@@ -97,7 +97,7 @@ const Navbar = () => {
           </li>
           {user?.uid && (
             <li className="tooltip tooltip-bottom" data-tip="Dashboard">
-              <Link href="#">
+              <Link href="/dashboard">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"

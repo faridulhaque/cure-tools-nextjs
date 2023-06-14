@@ -11,7 +11,6 @@ import MyOrders from "../particles/dashboard/user/MyOrders";
 const DashboardIndex = () => {
   const router = useRouter();
 
-
   const items = [
     {
       title: "Profile",
@@ -32,7 +31,7 @@ const DashboardIndex = () => {
 
   let foundItem = items.find((item: any) => item.link === router.route);
 
-  let currentItem = foundItem?.link ? foundItem : items[0]; 
+  let currentItem = foundItem?.link ? foundItem : items[0];
 
   return (
     <>
@@ -82,18 +81,26 @@ const DashboardIndex = () => {
             </div>
           </div>
           {/* Page content here */}
-          <div className="w-11/12 mx-auto ">{currentItem?.comp}</div>
+          <div className="w-10/12 lg:w-2/5 mx-auto my-5 min-h-screen">{currentItem?.comp}</div>
         </div>
         <div className="drawer-side">
           <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80 h-full bg-base-200">
+          <ul className="menu p-4 w-full h-full bg-base-200">
             {/* Sidebar content here */}
-            <li>
-              <a>Sidebar Item 1</a>
-            </li>
-            <li>
-              <a>Sidebar Item 2</a>
-            </li>
+            {items.map((item: any) => (
+              <li key={item.link}>
+                <Link
+                  className={`${
+                    item.link === router.route
+                      ? "text-white bg-[#000944] px-3 py-2 rounded-sm"
+                      : ""
+                  }`}
+                  href={item.link}
+                >
+                  {item.title}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

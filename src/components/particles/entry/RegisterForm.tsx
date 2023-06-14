@@ -68,7 +68,7 @@ const RegisterForm = () => {
     );
 
     if (newUser?.user.uid) {
-      const displayName = formInfo.displayName;
+      const displayName = e.target.displayName.value;
       const email = newUser?.user?.email;
       const photo = newUser?.user?.photoURL;
 
@@ -80,9 +80,9 @@ const RegisterForm = () => {
 
       const registered: any = await register(info);
 
-      if (registered?.acknowledged) {
+      if (registered?.data?.acknowledged) {
         router.push("/home");
-      } else if(registered?.err) {
+      } else if(registered?.data.err) {
         alert("email already in use");
       }
     }

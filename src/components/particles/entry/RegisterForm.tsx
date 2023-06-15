@@ -80,6 +80,7 @@ const RegisterForm = () => {
 
       const registered: any = await register(info);
 
+
       if (registered?.data?.acknowledged) {
         router.push("/home");
       } else if(registered?.data.err) {

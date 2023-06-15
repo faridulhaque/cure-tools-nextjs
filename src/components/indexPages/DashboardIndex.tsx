@@ -7,31 +7,107 @@ import Sidebar from "../particles/dashboard/Sidebar";
 import Link from "next/link";
 import AddReview from "../particles/dashboard/user/AddReview";
 import MyOrders from "../particles/dashboard/user/MyOrders";
+import RequireCommon from "@/Requires/RequireCommon";
+import RequireUser from "@/Requires/RequireUser";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/services/firebase.init";
+import { useGetUserProfileQuery } from "@/services/queries/profileApi";
+import Loading from "../particles/shared/Loading";
+import AddNewProduct from "../particles/dashboard/admin/AddNewProduct";
+import RequireAdmin from "@/Requires/RequireAdmin";
+import ManageOrders from "../particles/dashboard/admin/ManageOrders";
+import ManageProducts from "../particles/dashboard/admin/ManageProducts";
+import ManageMembers from "../particles/dashboard/admin/ManageMembers";
 
 const DashboardIndex = () => {
   const router = useRouter();
 
+  const [user, loading] = useAuthState(auth);
+
+  const { data: profileData, isLoading } = useGetUserProfileQuery<any>(
+    user?.email
+  );
+
   const items = [
     {
-      title: "Profile",
+      title: "My Profile",
       link: "/dashboard/profile",
-      comp: <MyProfile></MyProfile>,
+      comp: (
+        <RequireCommon>
+          <MyProfile></MyProfile>
+        </RequireCommon>
+      ),
     },
     {
       title: "Add a Review",
       link: "/dashboard/add_review",
-      comp: <AddReview></AddReview>,
+      comp: (
+        <RequireUser>
+          <AddReview></AddReview>
+        </RequireUser>
+      ),
     },
     {
       title: "My Orders",
       link: "/dashboard/my_orders",
-      comp: <MyOrders></MyOrders>,
+      comp: (
+        <RequireUser>
+          <MyOrders></MyOrders>
+        </RequireUser>
+      ),
+    },
+    {
+      title: "My Profile",
+      link: "/dashboard/profile",
+      comp: (
+        <RequireCommon>
+          <MyProfile></MyProfile>
+        </RequireCommon>
+      ),
+    },
+    {
+      title: "Add New Product",
+      link: "/dashboard/add_new_product",
+      comp: (
+        <RequireAdmin>
+          <AddNewProduct></AddNewProduct>
+        </RequireAdmin>
+      ),
+    },
+    {
+      title: "Manage Orders",
+      link: "/dashboard/manage_orders",
+      comp: (
+        <RequireAdmin>
+          <ManageOrders></ManageOrders>
+        </RequireAdmin>
+      ),
+    },
+    {
+      title: "Manage Products",
+      link: "/dashboard/manage_products",
+      comp: (
+        <RequireAdmin>
+          <ManageProducts></ManageProducts>
+        </RequireAdmin>
+      ),
+    },
+    {
+      title: "Manage Members",
+      link: "/dashboard/manage_members",
+      comp: (
+        <RequireAdmin>
+          <ManageMembers></ManageMembers>
+        </RequireAdmin>
+      ),
     },
   ];
 
   let foundItem = items.find((item: any) => item.link === router.route);
 
   let currentItem = foundItem?.link ? foundItem : items[0];
+
+  if (loading || isLoading) return <Loading></Loading>;
 
   return (
     <>
@@ -61,47 +137,95 @@ const DashboardIndex = () => {
             </div>
             <div className="flex-1 px-2 mx-2">{currentItem?.title}</div>
             <div className="flex-none hidden lg:block">
-              <ul className="menu menu-horizontal">
-                {/* Navbar menu content here */}
-                {items.map((item: any) => (
-                  <li key={item.link}>
-                    <Link
-                      className={`${
-                        item.link === router.route
-                          ? "text-white bg-[#000944] px-3 py-2 rounded-sm"
-                          : ""
-                      }`}
-                      href={item.link}
-                    >
-                      {item.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              {profileData?.role != "admin" ? (
+                <ul className="menu menu-horizontal">
+                  {/* Navbar menu content here */}
+                  {items.slice(0, 3).map((item: any) => (
+                    <li key={item.title}>
+                      <Link
+                        className={`${
+                          item.link === router.route
+                            ? "text-white bg-[#000944] px-3 py-2 rounded-sm"
+                            : ""
+                        }`}
+                        href={item.link}
+                      >
+                        {item.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <ul className="menu menu-horizontal">
+                  {/* Navbar menu content here */}
+                  {items.slice(3, items.length).map((item: any) => (
+                    <li key={item.link}>
+                      <Link
+                        className={`${
+                          item.link === router.route
+                            ? "text-white bg-[#000944] px-3 py-2 rounded-sm"
+                            : ""
+                        }`}
+                        href={item.link}
+                      >
+                        {item.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
           {/* Page content here */}
-          <div className="w-10/12 lg:w-2/5 mx-auto my-5 min-h-screen">{currentItem?.comp}</div>
+          <div
+            className={`mx-auto my-5 min-h-screen ${
+              currentItem?.link == "/dashboard/profile"
+                ? "w-10/12 lg:w-2/5 "
+                : profileData?.role == "admin"
+                ? "w-10/12"
+                : "w-10/12 lg:w-2/5 "
+            }`}
+          >
+            {currentItem?.comp}
+          </div>
         </div>
         <div className="drawer-side">
           <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-full h-full bg-base-200">
-            {/* Sidebar content here */}
-            {items.map((item: any) => (
-              <li key={item.link}>
-                <Link
-                  className={`${
-                    item.link === router.route
-                      ? "text-white bg-[#000944] px-3 py-2 rounded-sm"
-                      : ""
-                  }`}
-                  href={item.link}
-                >
-                  {item.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {profileData?.role === "admin" ? (
+            <ul className="menu p-4 w-full h-full bg-base-200">
+              {items.slice(0, 3).map((item: any) => (
+                <li key={item.link}>
+                  <Link
+                    className={`${
+                      item.link === router.route
+                        ? "text-white bg-[#000944] px-3 py-2 rounded-sm"
+                        : ""
+                    }`}
+                    href={item.link}
+                  >
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <ul className="menu p-4 w-full h-full bg-base-200">
+              {items.slice(3, items?.length).map((item: any) => (
+                <li key={item.link}>
+                  <Link
+                    className={`${
+                      item.link === router.route
+                        ? "text-white bg-[#000944] px-3 py-2 rounded-sm"
+                        : ""
+                    }`}
+                    href={item.link}
+                  >
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
 

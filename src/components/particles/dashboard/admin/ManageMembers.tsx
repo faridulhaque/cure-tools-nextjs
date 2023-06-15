@@ -11,8 +11,8 @@ const ManageMembers = () => {
   const [action, others] = useHandleAdminMutation();
 
   const makeAdmin = async (email: string) => {
-  const res = await  action({ email, role: "admin" });
-  console.log(res)
+    const res = await action({ email, role: "admin" });
+    console.log(res);
   };
 
   const removeAdmin = async (email: string) => {
@@ -24,11 +24,14 @@ const ManageMembers = () => {
   }
   return (
     <div className="w-full">
-      <p className="mt-5 text-md text-red-500 text-center lg:hidden">
+      <p className="mt-5 text-md text-red-500 text-center md:hidden lg:hidden">
         Your device seems too small to show this page
       </p>
 
-      <div className="overflow-x-auto hidden lg:block">
+      <div
+        className="overflow-x-auto 
+      hidden md:block lg:block"
+      >
         <table className="table">
           {/* head */}
           <thead>

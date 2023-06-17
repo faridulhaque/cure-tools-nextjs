@@ -32,6 +32,7 @@ const DashboardIndex = () => {
     {
       title: "My Profile",
       link: "/dashboard/profile",
+      table: false,
       comp: (
         <RequireCommon>
           <MyProfile></MyProfile>
@@ -41,6 +42,7 @@ const DashboardIndex = () => {
     {
       title: "Add a Review",
       link: "/dashboard/add_review",
+      table: false,
       comp: (
         <RequireUser>
           <AddReview></AddReview>
@@ -50,6 +52,7 @@ const DashboardIndex = () => {
     {
       title: "My Orders",
       link: "/dashboard/my_orders",
+      table: true,
       comp: (
         <RequireUser>
           <MyOrders></MyOrders>
@@ -59,6 +62,7 @@ const DashboardIndex = () => {
     {
       title: "My Profile",
       link: "/dashboard/profile",
+      table: true,
       comp: (
         <RequireCommon>
           <MyProfile></MyProfile>
@@ -68,6 +72,7 @@ const DashboardIndex = () => {
     {
       title: "Add New Product",
       link: "/dashboard/add_new_product",
+      table: true,
       comp: (
         <RequireAdmin>
           <AddNewProduct></AddNewProduct>
@@ -76,6 +81,7 @@ const DashboardIndex = () => {
     },
     {
       title: "Manage Orders",
+      table: true,
       link: "/dashboard/manage_orders",
       comp: (
         <RequireAdmin>
@@ -86,6 +92,7 @@ const DashboardIndex = () => {
     {
       title: "Manage Products",
       link: "/dashboard/manage_products",
+      table: true,
       comp: (
         <RequireAdmin>
           <ManageProducts></ManageProducts>
@@ -95,6 +102,7 @@ const DashboardIndex = () => {
     {
       title: "Manage Members",
       link: "/dashboard/manage_members",
+      table: true,
       comp: (
         <RequireAdmin>
           <ManageMembers></ManageMembers>
@@ -179,9 +187,7 @@ const DashboardIndex = () => {
           {/* Page content here */}
           <div
             className={`mx-auto my-5 min-h-screen ${
-              currentItem?.link == "/dashboard/profile"
-                ? "w-10/12 lg:w-2/5 "
-                : profileData?.role == "admin"
+              currentItem?.table
                 ? "w-10/12"
                 : "w-10/12 lg:w-2/5 "
             }`}

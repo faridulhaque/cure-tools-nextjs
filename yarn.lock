@@ -5640,6 +5640,19 @@ react-is@^18.0.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
 
+react-rating-star-with-type@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-rating-star-with-type/-/react-rating-star-with-type-1.1.1.tgz#d326938dc98a7f6209e7d2b8c2c99e152b1f1375"
+  integrity sha512-PMDmJN7pgLBL5qUTOkc+djfuoKutsY9Mq7mzWqGoN/u3Hul6PnK9PQkqxqm3F+O7tBnO4pHW5HbHUXw6nLNHXQ==
+  dependencies:
+    react "^18.2.0"
+    typescript "^5.1.3"
+
+react-rating-stars-component@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/react-rating-stars-component/-/react-rating-stars-component-2.2.0.tgz#e947c6a1f59278e6fea1098453f43cb15d077c14"
+  integrity sha512-A3lgLxumfFQQicKQmxacZ91fq/zRaVWlCPnVodJmJV6obvod4/yCotetN9WuyBiUfnKsEFDBo/8B85ocwmL7ng==
+
 react-redux@^8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-8.1.0.tgz#4e147339f00bbaac7196bc42bc99e6fc412846e7"
@@ -5673,7 +5686,7 @@ react-st-modal@^1.1.3:
   resolved "https://registry.yarnpkg.com/react-st-modal/-/react-st-modal-1.1.3.tgz#9f51b2028ceef2b9d1ed4abeca68211b619067bb"
   integrity sha512-QNAKjxPPKcHHGDKvXjcTkGgSzxd495nBxunGf3t4XfKjEDARKANcFg8yC1a3T2h/kXKB+YQfVuR5bK9iERWDDg==
 
-react@18.2.0:
+react@18.2.0, react@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
@@ -6657,7 +6670,7 @@ typedarray-to-buffer@^3.1.5:
   dependencies:
     is-typedarray "^1.0.0"
 
-typescript@5.1.3:
+typescript@5.1.3, typescript@^5.1.3:
   version "5.1.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.1.3.tgz#8d84219244a6b40b6fb2b33cc1c062f715b9e826"
   integrity sha512-XH627E9vkeqhlZFQuL+UsyAXEnibT0kWR2FWONlr4sTjvxyJYnyefgrkyECLzM5NenmKzRAy2rR/OlYLA1HkZw==

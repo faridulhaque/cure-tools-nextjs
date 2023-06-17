@@ -10,6 +10,23 @@ const userOrdersApi = apiSlice.injectEndpoints({
           method: "GET",
         }),
       }),
+
+      makePayment: builder.mutation({
+        query: (data:any) => ({
+          url: `/create-payment-intent`,
+          method: "POST",
+          body: data
+        }),
+      }),
+
+      updatePayment: builder.mutation({
+        query: (data:any) => ({
+          url: `/order/payment/${data.id}`,
+          method: "PUT",
+          body: data
+          
+        }),
+      }),
       
   
 
@@ -18,4 +35,4 @@ const userOrdersApi = apiSlice.injectEndpoints({
   });
 
 
-export const {useGetUserOrdersQuery} = userOrdersApi; 
+export const {useGetUserOrdersQuery, useMakePaymentMutation, useUpdatePaymentMutation} = userOrdersApi; 

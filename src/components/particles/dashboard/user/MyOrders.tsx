@@ -54,11 +54,7 @@ const MyOrders = () => {
                   <td>
                     <button
                       onClick={() =>
-                        setModalData({
-                          productName: d?.productName,
-                          totalPrice:
-                            parseInt(d?.quantity) * parseInt(d?.price),
-                        })
+                        setModalData(d)
                       }
                       className="bg-[#000944] text-white py-2 px-3 hover:bg-slate-500 hover:text-white btn"
                     >
@@ -79,7 +75,12 @@ const MyOrders = () => {
           </table>
         </div>
       </div>
-      {modalData?.productName && <PaymentModal setModalData={setModalData}></PaymentModal>}
+      {modalData?._id && (
+        <PaymentModal
+          setModalData={setModalData}
+          modalData={modalData}
+        ></PaymentModal>
+      )}
     </>
   );
 };

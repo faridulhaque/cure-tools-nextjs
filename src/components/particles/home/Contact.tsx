@@ -8,7 +8,7 @@ const Contact = () => {
       id="contact"
       className="text-white h-auto w-full m-auto bg-[#000944] py-20"
     >
-      <h2 className="text-4xl mb-5 text-center">Contact Me</h2>
+      <h2 className="text-4xl mb-5 text-center">Contact Us</h2>
       <p className="text-xl text-center">
         Get in touch with me by filling out this form regarding any inquiry you
         have.

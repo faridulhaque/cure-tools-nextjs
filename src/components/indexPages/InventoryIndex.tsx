@@ -9,19 +9,27 @@ import ItemInfo from "../particles/inventory/ItemInfo";
 import OrderForm from "../particles/inventory/OrderForm";
 
 const InventoryIndex = () => {
+
   const router = useRouter();
 
   const param = router.asPath.split("/")[2];
 
+  
+
   const { data: product, isLoading } = useGetOneProductQuery<any>(param);
+  
 
-  if (isLoading) return <Loading></Loading>;
-
+  if (router.isFallback || isLoading) {
+    return <Loading />;
+  }
   return (
     <>
       <Navbar></Navbar>
-      <div className="min-h-screen">
+      <div className="min-h-screen py-10">
         <ItemInfo product={product}></ItemInfo>
+        <div className="h-40">
+
+        </div>
         <OrderForm product={product}></OrderForm>
       </div>
       <Footer></Footer>

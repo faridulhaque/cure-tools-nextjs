@@ -10,6 +10,12 @@ const homeApi = apiSlice.injectEndpoints({
           method: "GET",
         }),
       }),
+      getOneProduct: builder.query({
+        query: (id:string) => ({
+          url: `/tool/${id}`,
+          method: "GET",
+        }),
+      }),
   
 
 
@@ -17,4 +23,4 @@ const homeApi = apiSlice.injectEndpoints({
   });
 
 
-export const {useGetInventoriesQuery} = homeApi; 
+export const {useGetInventoriesQuery, useGetOneProductQuery} = homeApi; 

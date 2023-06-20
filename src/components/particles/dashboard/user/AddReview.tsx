@@ -9,6 +9,7 @@ import {
   useAddReviewMutation,
   useGetReviewQuery,
 } from "@/services/queries/userReviewApi";
+import { ToastContainer, toast } from "react-toastify";
 const ReactStars = dynamic(import("react-rating-star-with-type"), {
   ssr: false,
 });
@@ -50,11 +51,8 @@ const AddReview = () => {
       };
 
       const result: any = await addReview(info);
-      if (result?.data.acknowledged) {
-        // alert('')
-        setRatingChanged(false);
-        setEditing(false);
-        return window.location.reload();
+      if (result?.data?.acknowledged) {
+        confirmReview();
       }
     }
 
@@ -64,7 +62,18 @@ const AddReview = () => {
       ratingText,
     };
     const result: any = await addReview(info);
-    if (result?.data.acknowledged) return window.location.reload();
+    if (result?.data?.acknowledged) {
+      confirmReview();
+    }
+  };
+
+  const confirmReview = () => {
+    toast.success("You have added a review", {
+      position: toast.POSITION.BOTTOM_CENTER,
+      toastId: 1,
+    });
+    setRatingChanged(false);
+    setEditing(false);
   };
 
   let component: any = (
@@ -72,7 +81,11 @@ const AddReview = () => {
       <div className="h-40 bg-[#000944] w-full relative">
         <Image
           className="absolute left-0 right-0 mx-auto rounded-full bottom-[-50%]"
-          src="https://i.ibb.co/6YK1cXs/avatar.jpg"
+          src={
+            profileData?.img
+              ? profileData?.img
+              : "https://i.ibb.co/6YK1cXs/avatar.jpg"
+          }
           width={150}
           height={150}
           alt=""
@@ -114,7 +127,11 @@ const AddReview = () => {
         <div className="h-40 bg-[#000944] w-full relative">
           <Image
             className="absolute left-0 right-0 mx-auto rounded-full bottom-[-50%]"
-            src="https://i.ibb.co/6YK1cXs/avatar.jpg"
+            src={
+              profileData?.img
+                ? profileData?.img
+                : "https://i.ibb.co/6YK1cXs/avatar.jpg"
+            }
             width={150}
             height={150}
             alt=""
@@ -154,7 +171,11 @@ const AddReview = () => {
         <div className="h-40 bg-[#000944] w-full relative">
           <Image
             className="absolute left-0 right-0 mx-auto rounded-full bottom-[-50%]"
-            src="https://i.ibb.co/6YK1cXs/avatar.jpg"
+            src={
+              profileData?.img
+                ? profileData?.img
+                : "https://i.ibb.co/6YK1cXs/avatar.jpg"
+            }
             width={150}
             height={150}
             alt=""
@@ -184,6 +205,7 @@ const AddReview = () => {
             Edit
           </button>
         </div>
+        <ToastContainer></ToastContainer>
       </div>
     );
   }

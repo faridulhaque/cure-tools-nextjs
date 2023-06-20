@@ -2,8 +2,7 @@ import { useGetOneProductQuery } from "@/services/queries/homeApi";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
-import Loading from "../shared/Loading";
-import dynamic from "next/dynamic";
+
 
 
 const ItemInfo = ({product}:any) => {

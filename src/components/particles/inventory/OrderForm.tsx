@@ -5,7 +5,12 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Loading from "../shared/Loading";
 import { useSaveOrderMutation } from "@/services/queries/userOrdersApi";
 
-const OrderForm = (product: any) => {
+import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from "next/router";
+
+const OrderForm = ({ product }: any) => {
+  const router = useRouter();
+
   const [user, loading] = useAuthState(auth);
 
   const email = user?.email;
@@ -20,29 +25,53 @@ const OrderForm = (product: any) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
+    const { Alert } = await import("react-st-modal");
+    console.log(e.target.quantity.value)
+    console.log(product.minQuantity)
+
+    if (
+      e.target.quantity.value < product?.minQuantity ||
+      e.target.quantity.value > product?.avlQuantity
+    )
+      return Alert(
+        `Quantity must be between ${product.minQuantity} and ${product.avlQuantity}`,"Warning!"
+      );
+
     const name = e.target.name.value;
     const productName = product.name;
     const price = product.price;
     const payment = false;
+    const shipment = false;
 
-    const phn = e.target.phn.value;
+    const phone = e.target.phone.value;
     const address = e.target.address.value;
     const email = e.target.email.value;
     const quantity = e.target.quantity.value;
 
-    if(quantity < product?.minQuantity || quantity > product?.avlQuantity) return alert("quantity invalid")
-
-    const result = await saveOrder({
+    const result: any = await saveOrder({
       name,
       productName,
       price,
       payment,
-      phn,
+      shipment,
+      phone,
       address,
       email,
+      quantity,
     });
 
-    if (result) console.log(result);
+    if (result?.data?.acknowledged) {
+      const { Confirm } = await import("react-st-modal");
+      const isConfirmed = await Confirm(
+        "Would you like to visit the orders page to continue payment?",
+        "Your order has been saved!"
+      );
+      if (isConfirmed) {
+        router.push("/dashboard/my_orders");
+      }
+
+      e.target.reset();
+    }
   };
 
   return (
@@ -92,9 +121,9 @@ const OrderForm = (product: any) => {
             className="w-full h-14 mt-2 outline-none border-none rounded-md bg-white"
             type="text"
             required
-            id="ph"
-            name="phn"
-            defaultValue={profileData?.phn}
+            id="phone"
+            name="phone"
+            defaultValue={profileData?.phone}
           />
         </div>
 
@@ -129,6 +158,8 @@ const OrderForm = (product: any) => {
       >
         Submit
       </button>
+
+      <ToastContainer></ToastContainer>
     </form>
   );
 };

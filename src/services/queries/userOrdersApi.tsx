@@ -2,16 +2,17 @@ import { apiSlice } from "../apiSlice";
 
 const userOrdersApi = apiSlice.injectEndpoints({
   endpoints: (builder: any) => ({
+
     getUserOrders: builder.query({
       query: (email: string) => ({
-        url: `/myOrders/${email}`,
+        url: `/api/userOrders/${email}`,
         method: "GET",
       }),
     }),
 
     saveOrder: builder.mutation({
       query: (data: any) => ({
-        url: `/orders`,
+        url: `/api/userOrders/save`,
         method: "POST",
         body: data,
       }),
@@ -19,7 +20,7 @@ const userOrdersApi = apiSlice.injectEndpoints({
 
     makePayment: builder.mutation({
       query: (data: any) => ({
-        url: `/create-payment-intent`,
+        url: `/api/userOrders/payment-intent`,
         method: "POST",
         body: data,
       }),
@@ -27,7 +28,7 @@ const userOrdersApi = apiSlice.injectEndpoints({
 
     updatePayment: builder.mutation({
       query: (data: any) => ({
-        url: `/order/payment/${data.id}`,
+        url: `/api/userOrders/payment/${data.id}`,
         method: "PUT",
         body: data,
       }),

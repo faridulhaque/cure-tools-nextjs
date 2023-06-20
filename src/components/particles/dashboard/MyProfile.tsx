@@ -19,6 +19,7 @@ const MyProfile = () => {
 
   const { isLoading, data: profileData } = useGetUserProfileQuery<any>(email);
 
+
   if (loading || isLoading) return <Loading></Loading>;
 
 

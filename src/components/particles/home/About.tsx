@@ -2,7 +2,7 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="py-20 text-[#333333] w-full bg-base-200">
+    <div id="about" className="py-20 text-[#333333] w-full bg-base-200">
       <h2 className="text-center text-4xl my-5">About Us</h2>
       <p className="w-3/4 text-xl mx-auto">
         Welcome to CURE TOOLS, where precision and

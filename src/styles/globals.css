@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 
-
+*{
+    scroll-behavior: smooth !important;
+}
 .banner{
     background-image: url(https://ibb.co/kJhf3RL);
 }
@@ -12,3 +14,4 @@
 background-color: rgba(0, 0, 0, 0.5);
 
 }
+

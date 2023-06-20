@@ -35,10 +35,10 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 z-50"
           >
             <li className="h-12">
-              <Link href="#">Home</Link>
+              <Link href="/#home">Home</Link>
             </li>
             <li className="h-12">
-              <Link href="#">Inventories</Link>
+              <Link href="/#inventories">Inventories</Link>
             </li>
             {user?.uid && (
               <li className="h-12">
@@ -46,10 +46,10 @@ const Navbar = () => {
               </li>
             )}
             <li className="h-12">
-              <Link href="#">Reviews</Link>
+              <Link href="/#reviews">Reviews</Link>
             </li>
             <li className="h-12">
-              <Link href="#">Contact</Link>
+              <Link href="/#contact">Contact</Link>
             </li>
           </ul>
         </div>
@@ -60,7 +60,7 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li className="tooltip tooltip-bottom" data-tip="Home">
-            <Link href="#">
+            <Link href="/#home">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -78,7 +78,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="tooltip tooltip-bottom" data-tip="Inventories">
-            <Link href="#">
+            <Link href="/#inventories">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -116,7 +116,7 @@ const Navbar = () => {
             </li>
           )}
           <li className="tooltip tooltip-bottom" data-tip="Reviews">
-            <Link href="#">
+            <Link href="/#reviews">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -134,7 +134,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="tooltip tooltip-bottom" data-tip="Contact">
-            <Link href="#">
+            <Link href="/#contact">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"

@@ -6,13 +6,13 @@ const userReviewApi = apiSlice.injectEndpoints({
 
       getReview: builder.query({
         query: (email:string) => ({
-          url: `/myReview/${email}`,
+          url: `/api/myReview/${email}`,
           method: "GET",
         }),
       }),
       addReview: builder.mutation({
         query: (data:any) => ({
-          url: `/myReview/${data.email}`,
+          url: `/api/myReview/${data.email}`,
           method: "PUT",
           body: data,
         }),

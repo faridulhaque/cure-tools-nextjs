@@ -18,7 +18,7 @@ const InventoryIndex = () => {
 
   const { data: product, isLoading } = useGetOneProductQuery<any>(param);
   
-
+console.log(product)
   if (router.isFallback || isLoading) {
     return <Loading />;
   }

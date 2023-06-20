@@ -1,13 +1,13 @@
 import { useUpdateUserProfileMutation } from "@/services/queries/profileApi";
 import React, { useState } from "react";
 import Loading from "../shared/Loading";
-import { profile } from "console";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UpdateProfile = ({ profileData, setUpdateForm }: any) => {
   const [error, setError] = useState("");
 
   const [update, { isLoading, isError }] = useUpdateUserProfileMutation();
-
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -20,21 +20,22 @@ const UpdateProfile = ({ profileData, setUpdateForm }: any) => {
       displayName: e.target.displayName.value,
       email: profileData?.email,
       phone: e.target?.phone.value,
-      photo: e.target.photo.value,
+      photo: e.target.photo.value ? e.target.photo.value : profileData?.photo,
       address: e.target.address.value,
     };
 
-
-
     const res: any = await update(info);
 
-
     if (res?.data?.acknowledged) {
-        alert('profile successfully updated')
-        setUpdateForm(false)
+      toast.success("Profile Successfully updated", {
+        toastId: 1,
+        position: toast.POSITION.BOTTOM_CENTER,
+      });
+      setTimeout(() => {
+        setUpdateForm(false);
+      }, 2000);
     }
   };
-
 
   if (isLoading) return <Loading></Loading>;
 
@@ -91,10 +92,12 @@ const UpdateProfile = ({ profileData, setUpdateForm }: any) => {
         <label className="label">
           <span className="label-text">Full Address</span>
         </label>
-        <textarea defaultValue={profileData.address} className="input input-bordered" name="address" />
+        <textarea
+          defaultValue={profileData.address}
+          className="input input-bordered"
+          name="address"
+        />
       </div>
-
-
 
       {error && (
         <div className="w-11/12 mx-auto">
@@ -112,6 +115,7 @@ const UpdateProfile = ({ profileData, setUpdateForm }: any) => {
           Save
         </button>
       </div>
+      <ToastContainer></ToastContainer>
     </form>
   );
 };

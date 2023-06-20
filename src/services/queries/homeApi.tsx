@@ -1,29 +1,41 @@
 import { apiSlice } from "../apiSlice";
 
 const homeApi = apiSlice.injectEndpoints({
-    endpoints: (builder: any) => ({
-      
-
-      getInventories: builder.query({
-        query: () => ({
-          url: `/tools`,
-          method: "GET",
-        }),
+  endpoints: (builder: any) => ({
+    getInventories: builder.query({
+      query: () => ({
+        url: `/api/home/tools`,
+        method: "GET",
       }),
-
-      getOneProduct: builder.query({
-        query: (id:string) => ({
-          url: `/tool/${id}`,
-          method: "GET",
-        }),
-      }),
-
-    
-  
-
-
     }),
-  });
 
+    getOneProduct: builder.query({
+      query: (id: string) => ({
+        url: `/api/home/tool/${id}`,
+        method: "GET",
+      }),
+    }),
 
-export const {useGetInventoriesQuery, useGetOneProductQuery} = homeApi; 
+    getAllReviews: builder.query({
+      query: () => ({
+        url: `/api/home/reviews`,
+        method: "GET",
+      }),
+    }),
+
+    makeContact: builder.mutation({
+      query: (data: any) => ({
+        url: `/api/home/contact`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+  }),
+});
+
+export const {
+  useGetInventoriesQuery,
+  useGetOneProductQuery,
+  useGetAllReviewsQuery,
+  useMakeContactMutation,
+} = homeApi;

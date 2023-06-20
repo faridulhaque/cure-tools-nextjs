@@ -4,7 +4,7 @@ const adminApi = apiSlice.injectEndpoints({
   endpoints: (builder: any) => ({
     addProduct: builder.mutation({
       query: (data: any) => ({
-        url: `/tools`,
+        url: `/api/admin/tools`,
         method: "POST",
         body: data,
       }),
@@ -12,28 +12,28 @@ const adminApi = apiSlice.injectEndpoints({
 
     deleteProduct: builder.mutation({
       query: (id: string) => ({
-        url: `/tool/${id}`,
+        url: `/api/admin/tool/${id}`,
         method: "DELETE",
       }),
     }),
 
     getOrders: builder.query({
       query: () => ({
-        url: `/orders`,
+        url: `/api/admin/orders`,
         method: "GET",
       }),
     }),
 
     getUsers: builder.query({
       query: () => ({
-        url: `/users`,
+        url: `/api/admin/users`,
         method: "GET",
       }),
     }),
 
     handleAdmin: builder.mutation({
       query: (data: any) => ({
-        url: `/handleAdmin/${data.email}`,
+        url: `/api/admin/${data.email}`,
         method: "PUT",
         body: data,
       }),

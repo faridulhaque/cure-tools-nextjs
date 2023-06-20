@@ -1,8 +1,26 @@
-import Link from "next/link";
+import { useMakeContactMutation } from "@/services/queries/homeApi";
 import React from "react";
-import { AiFillPhone, AiFillMail } from "react-icons/ai";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Contact = () => {
+  const [makeContact, { isLoading }] = useMakeContactMutation<any>();
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const message = e.target.message.value;
+    const result: any = await makeContact({ name, email, message });
+    if (result?.data?.acknowledged) {
+      toast.success("Your message has been sent!", {
+        position: toast.POSITION.BOTTOM_CENTER,
+        toastId: 1,
+      });
+    }
+    e.target.reset();
+  };
+
   return (
     <div
       id="contact"
@@ -15,7 +33,7 @@ const Contact = () => {
       </p>
       <div className="mx-auto w-11/12 xl:flex lg:flex md:flex sm:block items-center">
         <form
-          //   onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
           className="xl:w-2/4 lg:w-2/4 md:w-2/4 sm:w-11/12  flex flex-col mx-auto sm:mt-10"
         >
           {/* input fields wrapper started*/}
@@ -58,7 +76,7 @@ const Contact = () => {
               required
               id="message"
               name="message"
-              className="w-full resize-none h-[150px] mt-2 outline-none border-none rounded-md bg-white"
+              className="w-full resize-none h-[150px] mt-2 outline-none border-none rounded-md bg-white text-black"
             />
           </div>
           <button
@@ -69,6 +87,7 @@ const Contact = () => {
           </button>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };

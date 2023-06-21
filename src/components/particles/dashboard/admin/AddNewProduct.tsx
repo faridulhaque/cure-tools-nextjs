@@ -3,6 +3,7 @@ import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Loading from "../../shared/Loading";
 import { useAddProductMutation } from "@/services/queries/adminApi";
+import { ToastContainer, toast } from "react-toastify";
 
 const AddNewProduct = () => {
   const [error, setError] = React.useState("");
@@ -30,7 +31,11 @@ const AddNewProduct = () => {
 
     const result: any = await addProduct(info);
     if (result.data.acknowledged) {
-      alert("done");
+      toast.success("Item added successfully!", {
+        position: toast.POSITION.BOTTOM_CENTER,
+        toastId: 1,
+      });
+      e.target.reset();
     }
   };
 
@@ -138,7 +143,6 @@ const AddNewProduct = () => {
         />
       </div>
       <div className="w-11/12 lg:mt-20">
-        
         <button
           className="w-full h-12 bg-white text-[#000944] border-md"
           type="submit"
@@ -146,6 +150,7 @@ const AddNewProduct = () => {
           Submit
         </button>
       </div>
+      <ToastContainer></ToastContainer>
     </form>
   );
 };

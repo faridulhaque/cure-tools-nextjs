@@ -4,11 +4,19 @@ import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Loading from "./Loading";
 import { signOut } from "firebase/auth";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
   const [user, loading, error] = useAuthState(auth);
 
+  const router = useRouter()
+
   if (loading) return <Loading></Loading>;
+
+  const makeSignOut = async () => {
+    await signOut(auth)
+    router.push("/")
+  }
 
   return (
     <div className="navbar bg-[#000944] h-20 z-20">
@@ -155,7 +163,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         {user?.uid ? (
-          <button onClick={() => signOut(auth)} className="btn">
+          <button onClick={()=>makeSignOut()} className="btn">
             Log Out
           </button>
         ) : (

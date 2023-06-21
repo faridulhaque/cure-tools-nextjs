@@ -1,9 +1,16 @@
-import { useGetOrdersQuery } from "@/services/queries/adminApi";
+import {
+  useGetOrdersQuery,
+  useMakeShipmentMutation,
+} from "@/services/queries/adminApi";
 import React from "react";
 import Loading from "../../shared/Loading";
+import { useMakeContactMutation } from "@/services/queries/homeApi";
 
 const ManageOrders = () => {
   const { data, isLoading } = useGetOrdersQuery<any>(null);
+
+  const [makeShipment, { isLoading: shipmentLoading }] =
+    useMakeShipmentMutation<any>();
 
   if (isLoading) return <Loading></Loading>;
 
@@ -53,7 +60,8 @@ const ManageOrders = () => {
                 </td>
                 <td>
                   <button
-                    disabled={!d?.payment}
+                    onClick={() => makeShipment(d?._id)}
+                    disabled={!d?.payment || shipmentLoading || d?.shipment}
                     className="bg-[#000944] text-white py-2 px-3 hover:bg-slate-500 hover:text-white btn"
                   >
                     Shipped

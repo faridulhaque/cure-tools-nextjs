@@ -3,16 +3,31 @@ import { useDeleteProductMutation } from "@/services/queries/adminApi";
 import { useGetInventoriesQuery } from "@/services/queries/homeApi";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { ToastContainer, toast } from "react-toastify";
 
 const ManageProducts = () => {
   const [user, loading, error] = useAuthState(auth);
   const { data: products, isLoading } = useGetInventoriesQuery<any>(null);
 
-  const [action, others] = useDeleteProductMutation();
+  const [deleteProduct, others] = useDeleteProductMutation();
 
-  const deleteProduct = async (_id: string) => {
-    const result = await action(_id);
-    console.log(result);
+  const handleDelete = async (id: string) => {
+    const { Confirm } = await import("react-st-modal");
+    const isConfirmed = await Confirm(
+      "You can't undo this action",
+      "Are you sure?"
+    );
+
+    if (isConfirmed) {
+      const result: any = await deleteProduct(id);
+
+      if (result?.data?.acknowledged) {
+        toast.success("You have deleted an product!", {
+          position: toast.POSITION.BOTTOM_CENTER,
+          toastId: 1,
+        });
+      }
+    }
   };
 
   return (
@@ -46,7 +61,7 @@ const ManageProducts = () => {
                 <td>
                   <button
                     disabled={d?.email !== user?.email}
-                    onClick={() => deleteProduct(d?._id)}
+                    onClick={() => handleDelete(d?._id)}
                     className="bg-[#000944] text-white py-2 px-3 btn hover:bg-slate-500 hover:text-white"
                   >
                     Delete
@@ -57,6 +72,7 @@ const ManageProducts = () => {
           </tbody>
         </table>
       </div>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };

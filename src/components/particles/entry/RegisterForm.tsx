@@ -9,10 +9,11 @@ import { auth } from "@/services/firebase.init";
 import Loading from "../shared/Loading";
 import { useRegisterUserMutation } from "@/services/queries/registerApi";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import RegisterWithGoogle from "./RegisterWithGoogle";
+import PasswordViewIcon from "./PasswordViewIcon";
 
 const RegisterForm = () => {
-  const router = useRouter();
-
   // state declaration for form data
   const [formInfo, setFormInfo] = useState({
     displayName: "",
@@ -23,26 +24,17 @@ const RegisterForm = () => {
   // state declaration for error handling in form
   const [passError, setPassError] = useState("");
 
+  // state declaration to allow user to view their password while typing
+  const [viewPassword, setViewPassword] = React.useState(false);
+  const [viewPassword_2, setViewPassword_2] = React.useState(false);
+
   // data submission using rtk query.
-  const [
-    register,
-    {
-      isLoading: registering,
-      isError: isRegError,
-      error: regError,
-      data: regData,
-    },
-  ] = useRegisterUserMutation<any>();
+  const [register, { isLoading: registering }] = useRegisterUserMutation<any>();
 
   // user register with google. using email-pass and google sign-in
 
-  const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
-  const [
-    createUserWithEmailAndPassword,
-    emailUser,
-    emailUserLoading,
-    emailUserError,
-  ] = useCreateUserWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword, emailUserLoading, isEmailUserError] =
+    useCreateUserWithEmailAndPassword(auth);
 
   // function to get from the registration form
 
@@ -67,55 +59,37 @@ const RegisterForm = () => {
       e.target.password.value
     );
 
-    if (newUser?.user.uid) {
+    if (newUser?.user?.uid) {
       const displayName = e.target.displayName.value;
       const email = newUser?.user?.email;
       const photo = newUser?.user?.photoURL;
+      const role = "admin";
 
       const info = {
         displayName,
         email,
         photo,
+        role,
       };
 
       const registered: any = await register(info);
 
-
       if (registered?.data?.acknowledged) {
-        router.push("/home");
-      } else if(registered?.data.err) {
-        alert("email already in use");
+        // router.push("/home");
+      } else if (registered?.data?.err) {
+        toast.error("Email already in use!", {
+          position: toast.POSITION.BOTTOM_CENTER,
+          toastId: 1,
+        });
       }
     }
   };
 
-  // function to sign up with google button
-  const handleRegistryButton = async () => {
-    const newUser = await signInWithGoogle();
-    const displayName = newUser?.user?.displayName;
-    const email = newUser?.user?.email;
-    const photo = newUser?.user?.photoURL;
-    const info = {
-      displayName,
-      email,
-      photo,
-    };
-
-    if (newUser?.user?.uid) {
-      const result = await register(info);
-      if(result){
-        router.push("/")
-      }
-    }
-  };
-
-  if (gLoading || emailUserLoading) {
+  if (emailUserLoading) {
     return <Loading></Loading>;
   }
 
   if (registering) return <Loading></Loading>;
-
-
 
   return (
     <form
@@ -153,9 +127,13 @@ const RegisterForm = () => {
         <div className="form-control">
           <label className="label">
             <span className="label-text">Password</span>
+            <PasswordViewIcon
+              viewPassword={viewPassword}
+              setViewPassword={setViewPassword}
+            ></PasswordViewIcon>
           </label>
           <input
-            type="password"
+            type={viewPassword ? "text" : "password"}
             placeholder="password"
             className="input input-bordered"
             name="password"
@@ -166,9 +144,13 @@ const RegisterForm = () => {
         <div className="form-control">
           <label className="label">
             <span className="label-text">Re assign Password</span>
+            <PasswordViewIcon
+              viewPassword={viewPassword_2}
+              setViewPassword={setViewPassword_2}
+            ></PasswordViewIcon>
           </label>
           <input
-            type="password"
+            type={viewPassword ? "text" : "password"}
             placeholder="password"
             className="input input-bordered"
             name="password_2"
@@ -200,15 +182,11 @@ const RegisterForm = () => {
             Register
           </button>
           <div className="divider">OR</div>
-          <button
-            onClick={() => handleRegistryButton()}
-            type="button"
-            className="btn bg-red-500 text-white uppercase hover:bg-red-600"
-          >
-            Register with google
-          </button>
+          <RegisterWithGoogle></RegisterWithGoogle>
         </div>
       </div>
+
+      <ToastContainer></ToastContainer>
     </form>
   );
 };

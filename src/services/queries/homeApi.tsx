@@ -7,6 +7,7 @@ const homeApi = apiSlice.injectEndpoints({
         url: `/api/home/tools`,
         method: "GET",
       }),
+      providesTags: ["inventories"],
     }),
 
     getOneProduct: builder.query({
@@ -21,6 +22,7 @@ const homeApi = apiSlice.injectEndpoints({
         url: `/api/home/reviews`,
         method: "GET",
       }),
+      providesTags: ["user_review"],
     }),
 
     makeContact: builder.mutation({

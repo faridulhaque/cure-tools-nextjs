@@ -70,11 +70,11 @@ const CheckoutForm = ({ modalData, setModalData }: any) => {
   };
 
   const paymentStatusUpdate = async (trId: any) => {
-    const result = await updatePayment({
+    const result: any = await updatePayment({
       trId: trId,
       id: modalData?._id,
     });
-    // console.log(result);
+    if (result?.data?.acknowledged) return setModalData(null);
   };
 
   return (

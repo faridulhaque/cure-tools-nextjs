@@ -7,9 +7,13 @@ import {
 } from "react-firebase-hooks/auth";
 import Loading from "../shared/Loading";
 import { useRouter } from "next/router";
+import RegisterWithGoogle from "./RegisterWithGoogle";
+import PasswordViewIcon from "./PasswordViewIcon";
 
 const LoginForm = () => {
   const router = useRouter();
+
+  const [viewPassword, setViewPassword] = React.useState(false);
 
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
@@ -49,9 +53,13 @@ const LoginForm = () => {
         <div className="form-control">
           <label className="label">
             <span className="label-text">Password</span>
+            <PasswordViewIcon
+              viewPassword={viewPassword}
+              setViewPassword={setViewPassword}
+            ></PasswordViewIcon>
           </label>
           <input
-            type="text"
+            type={viewPassword ? "text" : "password"}
             placeholder="password"
             className="input input-bordered"
             name="password"
@@ -77,16 +85,15 @@ const LoginForm = () => {
           </label>
         </div>
         <div className="form-control mt-6">
-          <button type="submit" className="btn bg-[#000944] text-white uppercase hover:bg-[#000944]">
+          <button
+            type="submit"
+            className="btn bg-[#000944] text-white uppercase hover:bg-[#000944]"
+          >
             Login
           </button>
         </div>
         <div className="divider">OR</div>
-        <button
-        onClick={()=>signInWithGoogle()}
-        type="button" className="btn bg-red-500 text-white uppercase hover:bg-red-600">
-          Login with google
-        </button>
+        <RegisterWithGoogle></RegisterWithGoogle>
       </div>
     </form>
   );

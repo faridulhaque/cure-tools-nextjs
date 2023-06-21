@@ -8,6 +8,7 @@ const adminApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["inventories"],
     }),
 
     deleteProduct: builder.mutation({
@@ -15,6 +16,7 @@ const adminApi = apiSlice.injectEndpoints({
         url: `/api/admin/tool/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["inventories"],
     }),
 
     getOrders: builder.query({
@@ -22,6 +24,7 @@ const adminApi = apiSlice.injectEndpoints({
         url: `/api/admin/orders`,
         method: "GET",
       }),
+      providesTags: ["orders"],
     }),
 
     getUsers: builder.query({
@@ -29,6 +32,7 @@ const adminApi = apiSlice.injectEndpoints({
         url: `/api/admin/users`,
         method: "GET",
       }),
+      providesTags: ["members"],
     }),
 
     handleAdmin: builder.mutation({
@@ -37,6 +41,15 @@ const adminApi = apiSlice.injectEndpoints({
         method: "PUT",
         body: data,
       }),
+      invalidatesTags: ["members"],
+    }),
+
+    makeShipment: builder.mutation({
+      query: (id: any) => ({
+        url: `/api/admin/shipment/${id}`,
+        method: "PUT",
+      }),
+      invalidatesTags: ["orders"],
     }),
   }),
 });
@@ -47,4 +60,5 @@ export const {
   useDeleteProductMutation,
   useGetUsersQuery,
   useHandleAdminMutation,
+  useMakeShipmentMutation,
 } = adminApi;

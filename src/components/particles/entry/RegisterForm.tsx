@@ -14,6 +14,9 @@ import RegisterWithGoogle from "./RegisterWithGoogle";
 import PasswordViewIcon from "./PasswordViewIcon";
 
 const RegisterForm = () => {
+
+  const router = useRouter()
+
   // state declaration for form data
   const [formInfo, setFormInfo] = useState({
     displayName: "",
@@ -26,7 +29,6 @@ const RegisterForm = () => {
 
   // state declaration to allow user to view their password while typing
   const [viewPassword, setViewPassword] = React.useState(false);
-  const [viewPassword_2, setViewPassword_2] = React.useState(false);
 
   // data submission using rtk query.
   const [register, { isLoading: registering }] = useRegisterUserMutation<any>();
@@ -63,7 +65,7 @@ const RegisterForm = () => {
       const displayName = e.target.displayName.value;
       const email = newUser?.user?.email;
       const photo = newUser?.user?.photoURL;
-      const role = "admin";
+      const role = "member";
 
       const info = {
         displayName,
@@ -75,7 +77,7 @@ const RegisterForm = () => {
       const registered: any = await register(info);
 
       if (registered?.data?.acknowledged) {
-        // router.push("/home");
+        router.push("/home");
       } else if (registered?.data?.err) {
         toast.error("Email already in use!", {
           position: toast.POSITION.BOTTOM_CENTER,
@@ -144,10 +146,7 @@ const RegisterForm = () => {
         <div className="form-control">
           <label className="label">
             <span className="label-text">Re assign Password</span>
-            <PasswordViewIcon
-              viewPassword={viewPassword_2}
-              setViewPassword={setViewPassword_2}
-            ></PasswordViewIcon>
+           
           </label>
           <input
             type={viewPassword ? "text" : "password"}

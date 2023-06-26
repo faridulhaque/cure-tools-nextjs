@@ -9,14 +9,14 @@ import { useRouter } from "next/router";
 const Navbar = () => {
   const [user, loading, error] = useAuthState(auth);
 
-  const router = useRouter()
+  const router = useRouter();
 
   if (loading) return <Loading></Loading>;
 
   const makeSignOut = async () => {
-    await signOut(auth)
-    router.push("/")
-  }
+    await signOut(auth);
+    router.push("/");
+  };
 
   return (
     <div className="navbar bg-[#000944] h-20 z-20">
@@ -136,7 +136,7 @@ const Navbar = () => {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                 />
               </svg>
             </Link>
@@ -154,7 +154,7 @@ const Navbar = () => {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                 />
               </svg>
             </Link>
@@ -163,7 +163,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         {user?.uid ? (
-          <button onClick={()=>makeSignOut()} className="btn">
+          <button onClick={() => makeSignOut()} className="btn">
             Log Out
           </button>
         ) : (

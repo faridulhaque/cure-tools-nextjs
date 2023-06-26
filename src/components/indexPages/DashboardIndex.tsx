@@ -166,7 +166,7 @@ const DashboardIndex = () => {
               ) : (
                 <ul className="menu menu-horizontal">
                   {/* Navbar menu content here */}
-                  {items.slice(3, items.length).map((item: any) => (
+                  {items.slice(3, items?.length).map((item: any) => (
                     <li key={item.link}>
                       <Link
                         className={`${
@@ -197,7 +197,7 @@ const DashboardIndex = () => {
         </div>
         <div className="drawer-side">
           <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-          {profileData?.role === "admin" ? (
+          {profileData?.role != "admin" ? (
             <ul className="menu p-4 w-full h-full bg-base-200">
               {items.slice(0, 3).map((item: any) => (
                 <li key={item.link}>

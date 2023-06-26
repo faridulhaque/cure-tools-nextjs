@@ -180,8 +180,8 @@ const RegisterForm = () => {
           >
             Register
           </button>
-          <div className="divider">OR</div>
-          <RegisterWithGoogle></RegisterWithGoogle>
+          {/* <div className="divider">OR</div>
+          <RegisterWithGoogle></RegisterWithGoogle> */}
         </div>
       </div>
 

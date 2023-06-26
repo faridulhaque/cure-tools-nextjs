@@ -92,8 +92,8 @@ const LoginForm = () => {
             Login
           </button>
         </div>
-        <div className="divider">OR</div>
-        <RegisterWithGoogle></RegisterWithGoogle>
+        {/* <div className="divider">OR</div>
+        <RegisterWithGoogle></RegisterWithGoogle> */}
       </div>
     </form>
   );

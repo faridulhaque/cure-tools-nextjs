@@ -14,8 +14,7 @@ import RegisterWithGoogle from "./RegisterWithGoogle";
 import PasswordViewIcon from "./PasswordViewIcon";
 
 const RegisterForm = () => {
-
-  const router = useRouter()
+  const router = useRouter();
 
   // state declaration for form data
   const [formInfo, setFormInfo] = useState({
@@ -146,7 +145,6 @@ const RegisterForm = () => {
         <div className="form-control">
           <label className="label">
             <span className="label-text">Re assign Password</span>
-           
           </label>
           <input
             type={viewPassword ? "text" : "password"}
@@ -180,8 +178,7 @@ const RegisterForm = () => {
           >
             Register
           </button>
-          {/* <div className="divider">OR</div>
-          <RegisterWithGoogle></RegisterWithGoogle> */}
+          {/* <div className="divider">OR</div> */}
         </div>
       </div>
 

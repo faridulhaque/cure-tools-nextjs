@@ -9,6 +9,7 @@ import Loading from "../shared/Loading";
 import { useRouter } from "next/router";
 import RegisterWithGoogle from "./RegisterWithGoogle";
 import PasswordViewIcon from "./PasswordViewIcon";
+import LoginWithGoogleButton from "./LoginWithGoogleButton";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -92,8 +93,9 @@ const LoginForm = () => {
             Login
           </button>
         </div>
-        {/* <div className="divider">OR</div>
-        <RegisterWithGoogle></RegisterWithGoogle> */}
+        {/* <div className="divider">OR</div> */}
+        {/* <RegisterWithGoogle></RegisterWithGoogle> */}
+        {/* <LoginWithGoogleButton></LoginWithGoogleButton> */}
       </div>
     </form>
   );

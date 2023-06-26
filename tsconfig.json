@@ -28,7 +28,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/components/particles/entry/RegisterWithGoogleButton.tsx", "src/components/particles/entry/RegisterWithGoogleButton.tsx"  ],
   "exclude": [
     "node_modules"
   ]
